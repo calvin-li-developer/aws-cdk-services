@@ -18,7 +18,7 @@ export class AppStack extends cdk.Stack {
 
     const lambdaFunction = new Function(this, 'HelloWorldFunction', {
       runtime: Runtime.NODEJS_20_X, // Choose any supported Node.js runtime
-      code: Code.fromAsset(path.join(__dirname,'code')), // Points to the lambda directory
+      code: Code.fromAsset(path.join(process.cwd(),'code')), // Points to the lambda directory
       handler: 'index.handler', // Points to the 'hello' file in the lambda directory
       role: lambdaRole
     });
