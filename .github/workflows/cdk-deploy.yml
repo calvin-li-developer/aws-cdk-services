@@ -28,5 +28,6 @@ jobs:
         env:
           IMAGE_TAG: ${{ needs.build.outputs.IMAGE_TAG }}
         run: |
+          cd app-lambda-api
           npm install
           npx cdk diff && npx cdk deploy --require-approval=never
