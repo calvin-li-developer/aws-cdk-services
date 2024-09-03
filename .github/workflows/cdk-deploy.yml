@@ -25,9 +25,9 @@ jobs:
           aws-region: us-east-1
 
       - name: CDK DIFF / CDK DEPLOY
+        working-directory: ./app-lambda-api
         env:
           IMAGE_TAG: ${{ needs.build.outputs.IMAGE_TAG }}
         run: |
-          cd app-lambda-api
           npm install
           npx cdk diff && npx cdk deploy --require-approval=never

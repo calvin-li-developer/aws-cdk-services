@@ -4,7 +4,6 @@ import { Function, Runtime, Code } from 'aws-cdk-lib/aws-lambda';
 import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { LambdaRestApi, Stage, Deployment, LogGroupLogDestination, AccessLogFormat } from 'aws-cdk-lib/aws-apigateway';
 import { LogGroup } from 'aws-cdk-lib/aws-logs';
-import * as path from 'path';
 
 export class AppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -18,7 +17,7 @@ export class AppStack extends cdk.Stack {
 
     const lambdaFunction = new Function(this, 'HelloWorldFunction', {
       runtime: Runtime.NODEJS_20_X, // Choose any supported Node.js runtime
-      code: Code.fromAsset(path.join(__dirname, '../lambda-code')), // Points to the lambda directory
+      code: Code.fromAsset('lambda-code'), // Points to the lambda directory
       handler: 'index.handler', // Points to the 'hello' file in the lambda directory
       role: lambdaRole
     });
