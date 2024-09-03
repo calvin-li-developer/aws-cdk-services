@@ -29,5 +29,6 @@ jobs:
         env:
           IMAGE_TAG: ${{ needs.build.outputs.IMAGE_TAG }}
         run: |
+          pwd
           npm install
           npm run diff && npm run deploy --require-approval=never
