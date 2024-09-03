@@ -30,4 +30,4 @@ jobs:
           IMAGE_TAG: ${{ needs.build.outputs.IMAGE_TAG }}
         run: |
           npm install
-          npx cdk diff && npx cdk deploy --require-approval=never
+          npm run diff && npm run deploy --require-approval=never
