@@ -27,6 +27,21 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Check if CDK is bootstrapped
+        id: check-bootstrap
+        run: |
+          BOOTSTRAP_STACK=$(aws cloudformation describe-stacks --stack-name CDKToolkit --region $AWS_REGION --query "Stacks[0].StackName" --output text 2>&1 || true)
+          if [[ "$BOOTSTRAP_STACK" == "CDKToolkit" ]]; then
+            echo "bootstrap_required=false" >> $GITHUB_ENV
+          else
+            echo "bootstrap_required=true" >> $GITHUB_ENV
+          fi
+          
+      - name: Bootstrap CDK (if required)
+        if: ${{ env.bootstrap_required == 'true' }}
+        run: |
+          npx cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
+
       - name: CDK DIFF / CDK DEPLOY
         working-directory: ./app-lambda-api
         env:
