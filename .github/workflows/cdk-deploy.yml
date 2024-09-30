@@ -16,6 +16,8 @@ env:
 jobs:
   cdk:
     runs-on: ubuntu-latest
+    environment:
+      name: owner
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
