@@ -17,7 +17,7 @@ on:
       - "main"
     paths-ignore:
       - '.github/**'
-      - '**/package.json
+      - '**/package.json'
 
 env:
   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
