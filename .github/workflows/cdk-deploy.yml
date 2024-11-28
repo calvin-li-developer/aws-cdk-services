@@ -1,5 +1,5 @@
 # create a docker build pipeline
-name: CDK DEPLOY
+name: CDK DEPLOY / DESTROY
 
 on:
   workflow_dispatch:
@@ -17,6 +17,7 @@ on:
       - "main"
     paths-ignore:
       - '.github/**'
+      - '**/package.json
 
 env:
   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
