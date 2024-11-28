@@ -10,7 +10,7 @@
     "test": "jest",
     "diff": "cdk diff",
     "deploy": "cdk deploy --require-approval=never",
-    "destroy": "cdk destory --require-approval=never"
+    "destroy": "cdk destory --app='node bin/main.js' --require-approval=never --all"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
