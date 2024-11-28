@@ -3,6 +3,15 @@ name: CDK DEPLOY
 
 on:
   workflow_dispatch:
+    inputs:
+      action:
+        description: "Choose action: deploy or destroy"
+        required: true
+        default: "deploy"
+        type: choice
+        options:
+          - deploy
+          - destroy
   push:
     branches:
       - "main"
@@ -45,10 +54,17 @@ jobs:
           npx cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
 
       - name: CDK DIFF / CDK DEPLOY
+        if: ${{ github.event.inputs.action == 'deploy' }}
         working-directory: ./app-lambda-api
-        env:
-          IMAGE_TAG: ${{ needs.build.outputs.IMAGE_TAG }}
         run: |
           pwd
           npm install
           npm run diff && npm run deploy --require-approval=never
+
+      - name: Destroy Stack
+        if: ${{ github.event.inputs.action == 'destroy' }}
+        working-directory: ./app-lambda-api
+        run: |
+          pwd
+          npm install
+          npm run destroy --force
