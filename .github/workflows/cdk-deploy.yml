@@ -68,4 +68,5 @@ jobs:
         run: |
           pwd
           npm install
-          npm run destroy --force
+          npm run build
+          npm run destroy
